@@ -25,16 +25,16 @@ public class SelectionSort {
         
         //logic
         for( int i = 0; i < bilangan.length ; i++ ){
-            int indexArray = i;
+            int minArray = i;
             
             for( int j = i + 1; j < bilangan.length; j++ ){
-                if( bilangan[indexArray] > bilangan[j] ){
-                    indexArray = j;
+                if( bilangan[minArray] > bilangan[j] ){
+                    minArray = j;
                     }
                 }
             int temp = bilangan[i];
-            bilangan[i] = bilangan[indexArray];
-            bilangan[indexArray] = temp;
+            bilangan[i] = bilangan[minArray];
+            bilangan[minArray] = temp;
         }
 
         // tampilan setelah
