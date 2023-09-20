@@ -3,7 +3,7 @@ import java.util.Arrays;
 public class MergeSort{
 
     public static void main(String[] args){
-        int[] Nilai = { 55, 45, 32, 100, 37, 5, 35, 49, 15, 7, 38, 6, 31, 67, 37, 17, 19, 15, 55, 29, 40, 75, 65, 13, 73, 89, 88, 4, 6, 17, 74, 63, 17, 100, 62, 37, 98, 99, 93, 64, 11, 28, 49, 38, 95, 59, 21, 77, 97, 19, 68, 27, 78, 88, 79, 29, 58, 29, 50, 96, 36, 84, 99, 40, 28, 61, 74, 6, 58, 33, 77, 52, 35, 15, 47, 35, 43, 29, 88, 60, 91, 30, 20, 99, 88, 7, 53, 62, 45, 56, 17, 23, 95, 74, 5, 3, 33, 55, 19, 18};
+        int[] Nilai = { 84, 79, 60, 43, 55, 17, 18, 34, 19, 75, 54, 66, 25, 50, 22, 88, 93, 2, 45, 87, 72, 83, 78, 97, 54, 59, 47, 97, 96, 74, 60, 53, 1, 22, 4, 50, 65, 52, 60, 94, 27, 49, 83, 94, 68, 34, 53, 22, 25, 51, 11, 55, 41, 38, 9, 32, 45, 85, 83, 64, 25, 49, 32, 87, 32, 82, 49, 31, 94, 8, 46, 91, 10, 84, 70, 5, 2, 9, 3, 58, 49, 23, 41, 63, 99, 50, 57, 81, 69, 10, 92, 68, 49, 46, 14, 25, 55, 34, 29, 43, };
         mergeSort(Nilai);
     }
 
@@ -13,8 +13,8 @@ public class MergeSort{
 
         value = pisah(value);
 
-        System.out.println("\n==SEBELUM==");
-        System.out.println(Arrays.toString(value));
+        System.out.println("\n==SESUDAH==");
+        System.out.println(Arrays.toString(value) + "\n");
     }
 
 
@@ -43,14 +43,15 @@ public class MergeSort{
             kanan[j] = value[nilaiTengah + j];
         }
 
+        //memanggil kembali fungsi pisah
         kiri = pisah(kiri);
         kanan = pisah(kanan);
 
         //membuat array untuk menampung pengembalian array dari fungsi gabung
-        int hasil[] = new int[value.length];
+        int hasil[] = new int[kiri.length + kanan.length];
+
         hasil = gabung(kiri, kanan);
         return hasil;
-
     }
 
     //fungsi gabung
@@ -65,21 +66,21 @@ public class MergeSort{
                 if( kiri[i] <= kanan[j] ){
                     hasilGabung[k] = kiri[i];
                     i++;
-                    k++;
                 }else{
                     hasilGabung[k] = kanan[j];
                     j++;
-                    k++;
+                    
                 }
             }else if( i < kiri.length){
                 hasilGabung[k] = kiri[i];
                 i++;
-                k++;
+                
             }else if( j < kanan.length ){
                 hasilGabung[k] = kanan[j];
                 j++;
-                k++;
+                
             }
+            k++;
         }
         return hasilGabung;
     }
