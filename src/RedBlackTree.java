@@ -187,7 +187,6 @@ public class RedBlackTree {
     public void preOrder() {
         preOrderRecursive(root);
     }
-    
     private void preOrderRecursive(Node node) {
         if (node != null) {
             System.out.print(node.getKey() + " ");
@@ -199,7 +198,6 @@ public class RedBlackTree {
     public void inOrder() {
         inOrderRecursive(root);
     }
-    
     private void inOrderRecursive(Node node) {
         if (node != null) {
             inOrderRecursive(node.getLeft());
@@ -211,7 +209,6 @@ public class RedBlackTree {
     public void postOrder() {
         postOrderRecursive(root);
     }
-    
     private void postOrderRecursive(Node node) {
         if (node != null) {
             postOrderRecursive(node.getLeft());
@@ -219,8 +216,6 @@ public class RedBlackTree {
             System.out.print(node.getKey() + " ");
         }
     }
-
-    
 
     public static void main (String[] args){
         RedBlackTree rbt = new RedBlackTree();
