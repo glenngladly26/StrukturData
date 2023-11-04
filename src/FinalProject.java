@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 class Node {
@@ -71,119 +72,132 @@ public class FinalProject {
             return result;
         }
     }
-    private boolean addRekursif(Node current, Node newNode) {
-        int cmp = newNode.getKey().compareTo(current.getKey());
+    private boolean addRekursif(Node node, Node newNode) {
+        int cmp = newNode.getKey().compareTo(node.getKey());
         if (cmp == 0) {
             return false; 
         } else if (cmp < 0) {
-            if (current.getLeft() == null) {
-                current.setLeft(newNode);
-                newNode.setParent(current);
-                fixInsert(newNode);
+            if (node.getLeft() == null) {
+                node.setLeft(newNode);
+                newNode.setParent(node);
+                balanceAdd(newNode);
                 return true;
             } else {
-                return addRekursif(current.getLeft(), newNode);
+                return addRekursif(node.getLeft(), newNode);
             }
         } else {
-            if (current.getRight() == null) {
-                current.setRight(newNode);
-                newNode.setParent(current);
-                fixInsert(newNode);
+            if (node.getRight() == null) {
+                node.setRight(newNode);
+                newNode.setParent(node);
+                balanceAdd(newNode);
                 return true;
             } else {
-                return addRekursif(current.getRight(), newNode);
+                return addRekursif(node.getRight(), newNode);
             }
         }
     }
-    private void fixInsert(Node current) {
-        while (current != root && current.getParent().isRed()) {
-            if (current.getParent() == current.getParent().getParent().getLeft()) {
-                Node uncle = current.getParent().getParent().getRight();
+    private void balanceAdd(Node node) {
+        while (node != root && node.getParent().isRed()) {
+            if (node.getParent() == node.getParent().getParent().getLeft()) {
+                Node uncle = node.getParent().getParent().getRight();
                 if (uncle != null && uncle.isRed()) {
-                    current.getParent().setRed(false);
+                    node.getParent().setRed(false);
                     uncle.setRed(false);
-                    current.getParent().getParent().setRed(true);
-                    current = current.getParent().getParent();
+                    node.getParent().getParent().setRed(true);
+                    node = node.getParent().getParent();
                 } else {
-                    if (current == current.getParent().getRight()) {
-                        current = current.getParent();
-                        rotateToLeft(current);
+                    if (node == node.getParent().getRight()) {
+                        node = node.getParent();
+                        rotateToLeft(node);
                     }
-                    current.getParent().setRed(false);
-                    current.getParent().getParent().setRed(true);
-                    rotateToRight(current.getParent().getParent());
+                    node.getParent().setRed(false);
+                    node.getParent().getParent().setRed(true);
+                    rotateToRight(node.getParent().getParent());
                 }
             } else {
-                Node uncle = current.getParent().getParent().getLeft();
+                Node uncle = node.getParent().getParent().getLeft();
                 if (uncle != null && uncle.isRed()) {
-                    current.getParent().setRed(false);
+                    node.getParent().setRed(false);
                     uncle.setRed(false);
-                    current.getParent().getParent().setRed(true);
-                    current = current.getParent().getParent();
+                    node.getParent().getParent().setRed(true);
+                    node = node.getParent().getParent();
                 } else {
-                    if (current == current.getParent().getLeft()) {
-                        current = current.getParent();
-                        rotateToRight(current);
+                    if (node == node.getParent().getLeft()) {
+                        node = node.getParent();
+                        rotateToRight(node);
                     }
-                    current.getParent().setRed(false);
-                    current.getParent().getParent().setRed(true);
-                    rotateToLeft(current.getParent().getParent());
+                    node.getParent().setRed(false);
+                    node.getParent().getParent().setRed(true);
+                    rotateToLeft(node.getParent().getParent());
                 }
             }
         }
         root.setRed(false);
     }
-    private void rotateToRight(Node current) {
-        Node leftChild = current.getLeft();
-        current.setLeft(leftChild.getRight());
+    private void rotateToRight(Node node) {
+        Node leftChild = node.getLeft();
+        node.setLeft(leftChild.getRight());
         if (leftChild.getRight() != null) {
-            leftChild.getRight().setParent(current);
+            leftChild.getRight().setParent(node);
         }
-        leftChild.setParent(current.getParent());
-        if (current.getParent() == null) {
+        leftChild.setParent(node.getParent());
+        if (node.getParent() == null) {
             root = leftChild;
-        } else if (current == current.getParent().getLeft()) {
-            current.getParent().setLeft(leftChild);
+        } else if (node == node.getParent().getLeft()) {
+            node.getParent().setLeft(leftChild);
         } else {
-            current.getParent().setRight(leftChild);
+            node.getParent().setRight(leftChild);
         }
-        leftChild.setRight(current);
-        current.setParent(leftChild);
+        leftChild.setRight(node);
+        node.setParent(leftChild);
     }
-    private void rotateToLeft(Node current) {
-        Node rightChild = current.getRight();
-        current.setRight(rightChild.getLeft());
+    private void rotateToLeft(Node node) {
+        Node rightChild = node.getRight();
+        node.setRight(rightChild.getLeft());
         if (rightChild.getLeft() != null) {
-            rightChild.getLeft().setParent(current);
+            rightChild.getLeft().setParent(node);
         }
-        rightChild.setParent(current.getParent());
-        if (current.getParent() == null) {
+        rightChild.setParent(node.getParent());
+        if (node.getParent() == null) {
             root = rightChild;
-        } else if (current == current.getParent().getLeft()) {
-            current.getParent().setLeft(rightChild);
+        } else if (node == node.getParent().getLeft()) {
+            node.getParent().setLeft(rightChild);
         } else {
-            current.getParent().setRight(rightChild);
+            node.getParent().setRight(rightChild);
         }
-        rightChild.setLeft(current);
-        current.setParent(rightChild);
+        rightChild.setLeft(node);
+        node.setParent(rightChild);
     }
 
     String isExist(String key) {
-        Node current = root;
-        while (current != null) {
-            int cmp = key.compareTo(current.getKey());
-            if (cmp == 0) {
-                return current.getValue();
-            } else if (cmp < 0) {
-                current = current.getLeft();
-            } else {
-                current = current.getRight();
+        if(key.equals("random")) {
+            Random random = new Random();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                sb.append(random.nextInt(101));
+                if (i < 9) {
+                    sb.append(", ");
+                }
             }
+            return sb.toString();
+        }else{
+            Node current = root;
+            while (current != null) {
+                int cmp = key.compareTo(current.getKey());
+                if (cmp == 0) {
+                    return current.getValue();
+                } else if (cmp < 0) {
+                    current = current.getLeft();
+                } else {
+                    current = current.getRight();
+                }
         }
         return null;
+        }
+        
     }
 
-    void run() {
+    public void gimmick() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nMasukkan perintah (add/cari/exit): ");
@@ -200,11 +214,15 @@ public class FinalProject {
                     System.out.println("Kata dan terjemahannya sudah ada");
                 }
             } else if (command.equals("cari")) {
-                System.out.print("Masukkan kata yang ingin di terjamahkan: ");
+                System.out.print("Masukkan kata yang ingin di terjemahkan: ");
                 String key = input.nextLine();
                 String result = isExist(key);
                 if (result != null) {
-                    System.out.println("Terjemahan dari kata " + key + " adalah " + result);
+                    if( key.equals("random") ){
+                        System.out.println("Ini adalah angka random = " + result);
+                    }else{
+                        System.out.println("Terjemahan dari kata " + key + " adalah " + result);
+                    }
                 } else {
                     System.out.println("Terjemahan dari kata " + key + " tidak ditemukan");
                 }
@@ -218,6 +236,10 @@ public class FinalProject {
 
     public static void main(String[]args){
         FinalProject tree = new FinalProject();
-        tree.run();
+        tree.add("random", "acak");
+        tree.add("school", "sekolah");
+        tree.add("hallo", "halo");
+        tree.add("morning", "pagi");
+        tree.gimmick();
     }
 }// end class
