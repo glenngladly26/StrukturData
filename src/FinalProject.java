@@ -170,6 +170,7 @@ public class FinalProject {
     }
 
     String isExist(String key) {
+        //gimiick dari kata random
         if(key.equals("random")) {
             Random random = new Random();
             StringBuilder sb = new StringBuilder();
@@ -201,8 +202,8 @@ public class FinalProject {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nMasukkan perintah (add/cari/exit): ");
-            String command = input.nextLine();
-            if (command.equals("add")) {
+            String in = input.nextLine();
+            if (in.equals("add")) {
                 System.out.print("Masukkan Kata: ");
                 String key = input.nextLine();
                 System.out.print("Masukkan Terjemahan: ");
@@ -213,7 +214,7 @@ public class FinalProject {
                 } else {
                     System.out.println("Kata dan terjemahannya sudah ada");
                 }
-            } else if (command.equals("cari")) {
+            } else if (in.equals("cari")) {
                 System.out.print("Masukkan kata yang ingin di terjemahkan: ");
                 String key = input.nextLine();
                 String result = isExist(key);
@@ -226,7 +227,7 @@ public class FinalProject {
                 } else {
                     System.out.println("Terjemahan dari kata " + key + " tidak ditemukan");
                 }
-            } else if (command.equals("exit")) {
+            } else if (in.equals("exit")) {
                 break;
             } else {
                 System.out.println("Perintah tidak dikenali");
