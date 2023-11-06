@@ -2,12 +2,12 @@ import java.util.Random;
 import java.util.Scanner;
 
 class Node {
-    String key;
-    String value;
-    Node right;
-    Node left;
-    Node parent;
-    boolean red;
+    private String key;
+    private String value;
+    private Node right;
+    private Node left;
+    private Node parent;
+    private boolean red;
 
     Node(String key, String value) {
         this.key = key;
@@ -56,7 +56,7 @@ class Node {
 }
 
 public class FinalProject {
-    Node root;
+    private Node root;
 
     FinalProject() {}
 
@@ -170,7 +170,7 @@ public class FinalProject {
     }
 
     String isExist(String key) {
-        //gimiick dari kata random
+        //gimmick dari kata random
         if(key.equals("random")) {
             Random random = new Random();
             StringBuilder sb = new StringBuilder();
@@ -181,6 +181,8 @@ public class FinalProject {
                 }
             }
             return sb.toString();
+        }else if( key.equals("eat") ){
+            return "Emangnya kamu belum makan";
         }else{
             Node current = root;
             while (current != null) {
@@ -192,7 +194,7 @@ public class FinalProject {
                 } else {
                     current = current.getRight();
                 }
-        }
+            }
         return null;
         }
         
@@ -221,6 +223,8 @@ public class FinalProject {
                 if (result != null) {
                     if( key.equals("random") ){
                         System.out.println("Ini adalah angka random = " + result);
+                    }else if(key.equals("eat")){
+                        System.out.println(result);
                     }else{
                         System.out.println("Terjemahan dari kata " + key + " adalah " + result);
                     }
@@ -241,6 +245,8 @@ public class FinalProject {
         tree.add("school", "sekolah");
         tree.add("hallo", "halo");
         tree.add("morning", "pagi");
+        tree.add("break", "berhenti sejenak");
+        tree.add("eat", "Makan");
         tree.gimmick();
     }
 }// end class
