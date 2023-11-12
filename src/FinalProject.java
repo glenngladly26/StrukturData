@@ -182,7 +182,7 @@ public class FinalProject {
             }
             return sb.toString();
         }else if( key.equals("eat") ){
-            return "Emangnya kamu belum makan";
+            return "Emangnya kamu belum makan"; 
         }else{
             Node current = root;
             while (current != null) {
@@ -197,7 +197,6 @@ public class FinalProject {
             }
         return null;
         }
-        
     }
 
     public void gimmick() {
@@ -247,6 +246,8 @@ public class FinalProject {
         tree.add("morning", "pagi");
         tree.add("break", "berhenti sejenak");
         tree.add("eat", "Makan");
+        tree.add("close", "tutup");
+        tree.add("makanan", "eat");
         tree.gimmick();
     }
 }// end class

@@ -4,16 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class FinalProjectGUI extends JFrame implements ActionListener {
-    private JLabel kataLabel, terjemahanLabel, cariLabel, hasilLabel;
-    private JTextField kataField, terjemahanField, cariField;
-    private JButton addButton, cariButton, exitButton;
-    private JTextArea hasilArea;
     private FinalProject tree;
+    private JLabel kataLabel, terjemahanLabel, cariLabel, hasilLabel, imageLabel;
+    private JTextField kataField, terjemahanField, cariField;
+    private JButton addButton, cariButton, exitButton, clearButton;
+    private JTextArea hasilArea;
 
     public FinalProjectGUI() {
-        // set title
-        setTitle("Kamus");
-
+        
         // create components
         kataLabel = new JLabel("Kata:");
         terjemahanLabel = new JLabel("Terjemahan:");
@@ -27,9 +25,12 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         addButton = new JButton("Tambah");
         cariButton = new JButton("Cari");
         exitButton = new JButton("Keluar");
+        clearButton = new JButton("Clear");
 
         hasilArea = new JTextArea(10, 20);
         hasilArea.setEditable(false);
+        hasilArea.setLineWrap(true);
+        hasilArea.setWrapStyleWord(true);
 
         // set layout
         setLayout(new GridBagLayout());
@@ -68,12 +69,16 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         gc.gridx = 0;
         gc.gridy++;
         add(exitButton, gc);
+        gc.gridx++;
+        add(clearButton, gc);
+
 
         // add action listener
         addButton.addActionListener(this);
         cariButton.addActionListener(this);
         exitButton.addActionListener(this);
-
+        clearButton.addActionListener(this);
+        
         // create FinalProject object
         tree = new FinalProject();
         tree.add("random", "acak");
@@ -82,11 +87,19 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         tree.add("morning", "pagi");
         tree.add("break", "berhenti sejenak");
         tree.add("eat", "Makan");
+        tree.add("close", "tutup");
+        tree.add("makanan", "eat");
+        
+        setTitle("Kamus");         // membuat judul
+        setResizable(false);   //membuat window tdk dapat diperbesar/perkecil
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+        setVisible(true);
 
-        // make JFrame not resizable
-        // setResizable(false);
+
     }
-
+    
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == addButton) {
@@ -106,22 +119,36 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
                     hasilArea.setText("Ini adalah angka random = " + result);
                 }else if(kata.equals("eat")){
                     hasilArea.setText(result);
+                }else if(kata.equals("close")){
+                    System.exit(0);
                 } else {
                     hasilArea.setText("Terjemahan dari kata " + kata + " adalah " + result);
+                }
+                if(kata.equals("makanan") ){
+                    ImageIcon imageIcon = new ImageIcon("makanan.jpeg");
+                    imageLabel = new JLabel(imageIcon);
+                    hasilArea.setLayout(new BorderLayout());
+                    hasilArea.add(imageLabel, BorderLayout.CENTER);
+                    hasilArea.setText(" ");
+                    imageLabel.setIcon(imageIcon);
                 }
             } else {
                 hasilArea.setText("Terjemahan dari kata " + kata + " tidak ditemukan");
             }
         } else if (e.getSource() == exitButton) {
             System.exit(0);
+        }else if (e.getSource()== clearButton){
+            kataField.setText("");
+            terjemahanField.setText("");
+            cariField.setText("");
+            hasilArea.setText("");
+            imageLabel.setIcon(null);
         }
     }
 
+
     public static void main(String[] args) {
-        FinalProjectGUI gui = new FinalProjectGUI();
-        gui.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        gui.pack();
-        gui.setVisible(true);
+        new FinalProjectGUI();
     }
 }
 
