@@ -9,10 +9,11 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
     private JTextField kataField, terjemahanField, cariField;
     private JButton addButton, cariButton, exitButton, clearButton;
     private JTextArea hasilArea;
+    private ImageIcon imageIcon;
 
     public FinalProjectGUI() {
         
-        // create components
+        //membuat components
         kataLabel = new JLabel("Kata:");
         terjemahanLabel = new JLabel("Terjemahan:");
         cariLabel = new JLabel("Cari Kata:");
@@ -28,11 +29,11 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         clearButton = new JButton("Clear");
 
         hasilArea = new JTextArea(10, 20);
-        hasilArea.setEditable(false);
+        hasilArea.setEditable(true);
         hasilArea.setLineWrap(true);
         hasilArea.setWrapStyleWord(true);
 
-        // set layout
+        // mengatur layout
         setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -41,7 +42,7 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         gc.anchor = GridBagConstraints.WEST;
         
 
-        // add components
+        //menambahkan atau menampilkan components
         add(kataLabel, gc);
         gc.gridx++;
         add(kataField, gc);
@@ -95,7 +96,7 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-
+        
 
     }
     
@@ -125,7 +126,7 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
                     hasilArea.setText("Terjemahan dari kata " + kata + " adalah " + result);
                 }
                 if(kata.equals("makanan") ){
-                    ImageIcon imageIcon = new ImageIcon("makanan.jpeg");
+                    imageIcon = new ImageIcon("makanan.jpeg");
                     imageLabel = new JLabel(imageIcon);
                     hasilArea.setLayout(new BorderLayout());
                     hasilArea.add(imageLabel, BorderLayout.CENTER);

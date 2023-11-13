@@ -170,7 +170,6 @@ public class FinalProject {
     }
 
     String isExist(String key) {
-        //gimmick dari kata random
         if(key.equals("random")) {
             Random random = new Random();
             StringBuilder sb = new StringBuilder();
