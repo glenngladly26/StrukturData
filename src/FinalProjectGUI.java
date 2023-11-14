@@ -29,7 +29,7 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         clearButton = new JButton("Clear");
 
         hasilArea = new JTextArea(10, 20);
-        hasilArea.setEditable(true);
+        hasilArea.setEditable(false);
         hasilArea.setLineWrap(true);
         hasilArea.setWrapStyleWord(true);
 
@@ -80,26 +80,40 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
         exitButton.addActionListener(this);
         clearButton.addActionListener(this);
         
-        // create FinalProject object
+        // membuat objek FinalProject 
         tree = new FinalProject();
-        tree.add("random", "acak");
         tree.add("school", "sekolah");
         tree.add("hallo", "halo");
         tree.add("morning", "pagi");
         tree.add("break", "berhenti sejenak");
-        tree.add("eat", "Makan");
+        tree.add("breakfast", "Sarapan");
+
         tree.add("close", "tutup");
-        tree.add("makanan", "eat");
+        tree.add("picture", "foto");
+        tree.add("full", "penuh");
+        tree.add("random", "acak");
         
         setTitle("Kamus");         // membuat judul
         setResizable(false);   //membuat window tdk dapat diperbesar/perkecil
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
-        
-
     }
     
+    public void gimmick( String kata ){
+        if( kata.equals("picture") ){
+            imageIcon = new ImageIcon("makanan.jpeg");
+            imageLabel = new JLabel(imageIcon);
+            hasilArea.setLayout(new BorderLayout());
+            hasilArea.add(imageLabel, BorderLayout.CENTER);
+            hasilArea.setText(" ");
+            imageLabel.setIcon(imageIcon);
+        }else if( kata.equals("close")){
+            System.exit(0);
+        }else if( kata.equals("full") ){
+            // kode gimmick buat full screen
+        }
+    }
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -117,21 +131,14 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
             String result = tree.isExist(kata);
             if (result != null) {
                 if (kata.equals("random")) {
-                    hasilArea.setText("Ini adalah angka random = " + result);
-                }else if(kata.equals("eat")){
-                    hasilArea.setText(result);
+                    hasilArea.setText("Ini adalah 10 angka random = " + result);
                 }else if(kata.equals("close")){
-                    System.exit(0);
+                    gimmick("close");
                 } else {
                     hasilArea.setText("Terjemahan dari kata " + kata + " adalah " + result);
                 }
-                if(kata.equals("makanan") ){
-                    imageIcon = new ImageIcon("makanan.jpeg");
-                    imageLabel = new JLabel(imageIcon);
-                    hasilArea.setLayout(new BorderLayout());
-                    hasilArea.add(imageLabel, BorderLayout.CENTER);
-                    hasilArea.setText(" ");
-                    imageLabel.setIcon(imageIcon);
+                if(kata.equals("picture") ){
+                    gimmick("picture");
                 }
             } else {
                 hasilArea.setText("Terjemahan dari kata " + kata + " tidak ditemukan");

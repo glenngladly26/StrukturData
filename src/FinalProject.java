@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Scanner;
 
 class Node {
     private String key;
@@ -74,9 +73,9 @@ public class FinalProject {
     }
     private boolean addRekursif(Node node, Node newNode) {
         int cmp = newNode.getKey().compareTo(node.getKey());
-        if (cmp == 0) {
+        if (cmp == 0) { //jika key sdh ada
             return false; 
-        } else if (cmp < 0) {
+        }else if (cmp < 0) {
             if (node.getLeft() == null) {
                 node.setLeft(newNode);
                 newNode.setParent(node);
@@ -169,19 +168,9 @@ public class FinalProject {
         node.setParent(rightChild);
     }
 
-    String isExist(String key) {
+    public String isExist(String key) {
         if(key.equals("random")) {
-            Random random = new Random();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < 10; i++) {
-                sb.append(random.nextInt(101));
-                if (i < 9) {
-                    sb.append(", ");
-                }
-            }
-            return sb.toString();
-        }else if( key.equals("eat") ){
-            return "Emangnya kamu belum makan"; 
+            return gimmick("random");
         }else{
             Node current = root;
             while (current != null) {
@@ -194,47 +183,23 @@ public class FinalProject {
                     current = current.getRight();
                 }
             }
-        return null;
+            return null;
         }
     }
-
-    public void gimmick() {
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            System.out.print("\nMasukkan perintah (add/cari/exit): ");
-            String in = input.nextLine();
-            if (in.equals("add")) {
-                System.out.print("Masukkan Kata: ");
-                String key = input.nextLine();
-                System.out.print("Masukkan Terjemahan: ");
-                String value = input.nextLine();
-                boolean result = add(key, value);
-                if (result) {
-                    System.out.println("Kata berhasil ditambahkan");
-                } else {
-                    System.out.println("Kata dan terjemahannya sudah ada");
+    
+    public String gimmick( String key){
+        if( key.equals("random") ){
+            Random random = new Random();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < 10; i++) {
+                sb.append(random.nextInt(101));
+                if (i < 9) {
+                    sb.append(", ");
                 }
-            } else if (in.equals("cari")) {
-                System.out.print("Masukkan kata yang ingin di terjemahkan: ");
-                String key = input.nextLine();
-                String result = isExist(key);
-                if (result != null) {
-                    if( key.equals("random") ){
-                        System.out.println("Ini adalah angka random = " + result);
-                    }else if(key.equals("eat")){
-                        System.out.println(result);
-                    }else{
-                        System.out.println("Terjemahan dari kata " + key + " adalah " + result);
-                    }
-                } else {
-                    System.out.println("Terjemahan dari kata " + key + " tidak ditemukan");
-                }
-            } else if (in.equals("exit")) {
-                break;
-            } else {
-                System.out.println("Perintah tidak dikenali");
             }
+            return sb.toString();
         }
+        return null;
     }
 
     public static void main(String[]args){
@@ -244,9 +209,10 @@ public class FinalProject {
         tree.add("hallo", "halo");
         tree.add("morning", "pagi");
         tree.add("break", "berhenti sejenak");
-        tree.add("eat", "Makan");
+        tree.add("breakfast", "sarapan");
         tree.add("close", "tutup");
-        tree.add("makanan", "eat");
-        tree.gimmick();
+        tree.add("picture", "foto");
+        tree.add("full", "penuh");
+        
     }
 }// end class
