@@ -59,7 +59,7 @@ public class FinalProject {
 
     FinalProject() {}
 
-    boolean add(String key, String value) {
+    public boolean add(String key, String value) {
         Node newNode = new Node(key, value);
         if (root == null) {
             root = newNode;

@@ -106,12 +106,9 @@ public class FinalProjectGUI extends JFrame implements ActionListener {
             imageLabel = new JLabel(imageIcon);
             hasilArea.setLayout(new BorderLayout());
             hasilArea.add(imageLabel, BorderLayout.CENTER);
-            hasilArea.setText(" ");
             imageLabel.setIcon(imageIcon);
         }else if( kata.equals("close")){
             System.exit(0);
-        }else if( kata.equals("full") ){
-            // kode gimmick buat full screen
         }
     }
     
